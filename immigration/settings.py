@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     # Installed apps
     'authentication',
+    'applications',
 
 ]
 
