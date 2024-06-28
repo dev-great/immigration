@@ -1,6 +1,7 @@
 asgiref==3.8.1
 cloudinary==1.40.0
 Django==5.0.6
+dj-database-url==2.1.0
 django-cloudinary-storage==0.3.0
 django-cors-headers==4.3.1
 django-rest-passwordreset==1.4.1
