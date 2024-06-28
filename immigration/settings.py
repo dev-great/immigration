@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_rest_passwordreset',
+    'cloudinary_storage',
     'cloudinary',
 
     # Installed apps
@@ -41,9 +42,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -156,33 +157,6 @@ DJANGO_REST_PASSWORDRESET_TOKEN_CONFIG = {
         "min_number": 1500,
         "max_number": 9999
     }
-}
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file_debug': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '././log_files/debug.log',
-        },
-        'file_error': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '././log_files/error.log',
-            'maxBytes': 1024*1024*5,  # 5MB
-            'backupCount': 5,
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file_debug', 'file_error'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
 }
 
 
