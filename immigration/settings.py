@@ -1,9 +1,8 @@
 
 import os
-import cloudinary
-import cloudinary.api
 from pathlib import Path
-import cloudinary.uploader
+import cloudinary
+import cloudinary_storage
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,6 +29,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_rest_passwordreset',
+    'cloudinary',
 
     # Installed apps
     'authentication',
@@ -242,9 +242,6 @@ SIMPLE_JWT = {
 
 
 # Media files
-MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CLOUDINARY_URL = 'cloudinary://387625877385614:zZrsexxvBVryHpiyJ6DG2tZrl5Y@dbrvleydy'
 
 CLOUDINARY_STORAGE = {
@@ -252,6 +249,10 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '387625877385614',
     'API_SECRET': 'zZrsexxvBVryHpiyJ6DG2tZrl5Y',
 }
+
+# Media files
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 if 'DATABASE_URL' in os.environ:
