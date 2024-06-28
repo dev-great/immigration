@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+*.sqlite3
+*.pyc
+
+# Logs
+*.log
+
+# Static files
+staticfiles/
+media/
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependency directories
+venv/
+env/
+
+# Ignore local settings
+local_settings.py
