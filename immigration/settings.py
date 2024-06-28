@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jn40dp^$y!nfx5iiq45dl-l5(seo9rh&rapy!==t1t48+v&u)a'
 
 DEBUG = True
-ALLOWED_HOSTS = ["temui-ee909dd69d35.herokuapp.com"]
+ALLOWED_HOSTS = ["temui-f8ae1016781e.herokuapp.com"]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -26,7 +26,7 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://temui-ee909dd69d35.herokuapp.com',
+    'https://temui-f8ae1016781e.herokuapp.com',
 ]
 CORS_ALLOW_HEADERS = [
     "accept",
