@@ -10,10 +10,6 @@ __pycache__/
 # Logs
 *.log
 
-# Static files
-staticfiles/
-media/
-
 # Environment variables
 .env
 
