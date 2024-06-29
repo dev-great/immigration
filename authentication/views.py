@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
@@ -70,15 +71,26 @@ class LoginView(TokenObtainPairView):
             logger.info("Request data is valid.")
         except TokenError as e:
             logger.error(f"TokenError encountered: {e}")
-            raise CustomAPIException(
+            return CustomAPIException(
                 detail="Invalid token.", status_code=status.HTTP_401_UNAUTHORIZED).get_full_details()
+        except AuthenticationFailed as e:
+            logger.error(f"Authentication failed: {e}")
+            return CustomAPIException(detail=str(
+                e), status_code=status.HTTP_401_UNAUTHORIZED).get_full_details()
         except Exception as e:
             logger.error(f"Exception encountered: {e}")
-            raise CustomAPIException(detail=str(
+            return CustomAPIException(detail=str(
                 e), status_code=status.HTTP_400_BAD_REQUEST).get_full_details()
 
         logger.info("Login successful.")
-        return custom_response(status_code=status.HTTP_200_OK, message="Success", data=serializer.validated_data)
+        return Response(
+            {
+                "status_code": status.HTTP_200_OK,
+                "message": "Success",
+                "data": serializer.validated_data
+            },
+            status=status.HTTP_200_OK
+        )
 
 
 class TokenRefreshView(TokenRefreshView):
@@ -136,7 +148,7 @@ class UserProfileView(APIView):
             logger.debug(f"User profile found for email: {user_email}")
         except CustomUser.DoesNotExist:
             logger.error(f"User profile not found for email: {user_email}")
-            raise CustomAPIException(
+            return CustomAPIException(
                 detail="User profile not found.", status_code=status.HTTP_404_NOT_FOUND).get_full_details()
 
         serializers = UserSerializer(profile, data=request.data, partial=True)
@@ -202,7 +214,7 @@ class Logout(APIView):
         except Exception as e:
             logger.error(
                 f"Logout failed for user: {request.user.email}, error: {str(e)}")
-            raise CustomAPIException(detail=str(
+            return CustomAPIException(detail=str(
                 e), status_code=status.HTTP_400_BAD_REQUEST).get_full_details()
 
 
