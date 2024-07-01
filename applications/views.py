@@ -248,3 +248,44 @@ class I90ApplicationCreateView(APIView):
                 response['Content-Disposition'] = f'inline; filename="{output_filename}"'
                 return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class I90ApplicationCreateView(APIView):
+#     permission_classes = [AllowAny]
+
+#     @swagger_auto_schema(request_body=I90ApplicationSerializer)
+#     def post(self, request):
+#         serializer = I90ApplicationSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serialized_data = serializer.validated_data
+#             try:
+#                 json_data = serialized_data
+#                 template_path = os.path.join(
+#                     settings.BASE_DIR, 'templates/pdfs/i-90.pdf')
+#                 pdf_reader = PdfReader(template_path)
+
+#                 # Access form fields (adjust based on your PDF structure)
+#                 fields = pdf_reader.FormFields(flatten=False)
+
+#                 # Update form fields with JSON data
+#                 for field_name, field_data in fields.items():
+#                     if field_name in json_data:
+#                         field_data['TypedValue'] = json_data[field_name]
+
+#                 # Create a new PDF with filled fields
+#                 pdf_writer = PdfWriter()
+#                 pdf_writer.append(pdf_reader.pages)
+#                 output_filename = f'filled_form_{serializer.instance.id}.pdf'
+#                 output_path = os.path.join(
+#                     settings.MEDIA_ROOT, 'filled_pdfs', output_filename)
+#                 pdf_writer.write(output_path)  # Adjust output filename
+
+#                 return HttpResponse("PDF filled successfully!", content_type='application/pdf')
+
+#             except (json.JSONDecodeError, KeyError, Exception) as e:
+#                 print(f"Error processing request: {e}")
+#                 return HttpResponse("Error filling PDF.", status=400)
+
+#         else:
+#             # Handle serializer errors
+#             return HttpResponse(serializer.errors, status=400)
